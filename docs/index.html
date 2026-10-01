@@ -1,0 +1,103 @@
+<!doctype html><html lang="mr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PhotoSaaS: तुमचा अनुभव सांगा</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet"><style>
+:root{--bg:#f5f3f0;--surface:#fff;--ink:#141416;--mute:#6b6b70;--line:#e6e2db;--acc:#f59e0b;--acc-deep:#b45309;--acc-soft:#fff3d9;--acc-ink:#1a1204;--star:#f59e0b;--side:#0b0b0c}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.7 Inter,"Noto Sans Devanagari",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+h1{margin:0;font-weight:700;line-height:1.35;text-wrap:balance}
+button{font:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+.star-svg{fill:currentColor}
+
+.page{display:grid;min-height:100vh}
+.side{background:var(--side);color:#f2f2f3;padding:26px 22px 28px}
+.side h1{font-size:clamp(26px,5vw,34px);margin-top:30px}
+.side p{color:#a1a1a8;margin:12px 0 0;max-width:34ch}
+.prog{margin-top:26px;font-size:14px;color:#a1a1a8}.prog b{color:#f2f2f3}
+.track{height:4px;border-radius:4px;background:#26262a;margin-top:8px;overflow:hidden}
+#pb{height:100%;width:0;background:var(--acc);transition:width .3s}
+.lock{display:flex;gap:12px;align-items:center}.tile{flex:none;width:44px;height:44px;border-radius:12px;background:var(--acc);color:var(--acc-ink);display:grid;place-items:center}.lock b{display:block;font-size:17px;line-height:1.35}.lock span{font-size:13px;color:#8e8e94}
+@media(min-width:920px){.page{grid-template-columns:400px 1fr}.side{position:sticky;top:0;height:100vh;padding:40px 36px}}
+form{max-width:680px;width:100%;padding:30px 22px 0}
+fieldset{border:0;margin:0;padding:0;min-width:0}
+.q{margin:0 0 34px}
+legend,.q>label{display:block;padding:0;font-weight:600;font-size:17px;line-height:1.5;margin-bottom:12px}
+.opts{display:grid;gap:8px}
+.opt{position:relative;display:flex;gap:12px;align-items:center;padding:13px 16px;background:var(--surface);border:1px solid var(--line);border-radius:12px;cursor:pointer;transition:border-color .15s}
+.opt:hover{border-color:#d6d0c6}
+.opt input{position:absolute;opacity:0}
+.opt::before{content:"";flex:none;width:20px;height:20px;border:1.5px solid var(--mute);border-radius:50%;transition:.15s}
+.opt.c::before{border-radius:6px}
+.opt:has(input:checked){border-color:var(--acc);background:var(--acc-soft)}
+.opt:has(input:checked)::before{border-color:var(--acc);background:var(--acc);box-shadow:inset 0 0 0 4px var(--acc-soft)}
+.opt.c:has(input:checked)::before{box-shadow:none;background:var(--acc) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M5 10.5l3.2 3.2L15 6.8' fill='none' stroke='%231a1204' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/100% no-repeat}
+.opt:has(input:focus-visible){outline:3px solid var(--acc);outline-offset:2px}
+.stars{position:relative;display:flex;flex-direction:row-reverse;justify-content:flex-end;gap:4px}
+.stars input{position:absolute;opacity:0}
+.stars label{width:48px;height:48px;color:#d9d4cb;cursor:pointer;transition:color .15s,transform .15s}
+.stars input:checked~label,.stars label:hover,.stars label:hover~label{color:var(--star)}
+.stars label:active{transform:scale(.88)}
+.stars input:focus-visible+label{outline:3px solid var(--acc);border-radius:8px}
+input:not([type=radio]):not([type=checkbox]),select,textarea{width:100%;padding:13px 16px;border:1px solid var(--line);border-radius:12px;background:var(--surface);color:var(--ink);font:inherit;transition:border-color .15s}
+input:not([type=radio]):not([type=checkbox]):focus,select:focus,textarea:focus{outline:0;border-color:var(--acc);box-shadow:0 0 0 3px var(--acc-soft)}
+textarea{min-height:120px;resize:vertical}
+.sel{position:relative}
+.sel select{appearance:none;-webkit-appearance:none;padding-right:44px}
+.sel::after{content:"";position:absolute;right:18px;top:50%;width:8px;height:8px;border:solid var(--mute);border-width:0 2px 2px 0;transform:translateY(-70%) rotate(45deg);pointer-events:none}
+.submit{position:sticky;bottom:0;padding:26px 0 20px;background:linear-gradient(to top,var(--bg) 72%,transparent)}
+.submit button{width:100%;height:56px;border:0;border-radius:14px;background:var(--acc);color:var(--acc-ink);font-size:17px;font-weight:600;transition:transform .1s,opacity .15s}
+.submit button:hover{opacity:.92}.submit button:active{transform:scale(.985)}.submit button:disabled{opacity:.55}
+#msg:not(:empty){margin-bottom:12px;padding:13px 16px;border-radius:12px;background:var(--acc-soft);font-weight:500}
+.small{font-size:13px;color:var(--mute);margin-top:12px;line-height:1.6}
+.opts.two{grid-template-columns:repeat(auto-fill,minmax(190px,1fr))}@media(min-width:920px){form{padding:72px 56px 0}}.contact{margin-top:28px;padding-top:20px;border-top:1px solid #26262a}.contact p{margin:0 0 6px;font-size:14px}.contact a{display:inline-block;color:var(--acc);font-size:22px;font-weight:600;text-decoration:none}.contact a:hover{text-decoration:underline}@media(min-width:920px){.side{display:flex;flex-direction:column}.contact{margin-top:auto}}</style></head><body>
+<div class="page"><aside class="side"><div class="lock"><div class="tile"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l1.5-2h7L17 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.5"/></svg></div><div><b>PhotoSaaS</b><span>Photography platform</span></div></div>
+<h1>तुमचा अनुभव सांगा</h1><p>PhotoSaaS वापरून कसे वाटले? 2 मिनिटांत उत्तर द्या. * चिन्हांकित प्रश्न आवश्यक आहेत.</p>
+<div class="prog">उत्तरे दिली: <b id="pn">0</b> / 11<div class="track"><div id="pb"></div></div></div><div class="contact"><p>PhotoSaaS संदर्भात माझ्याशी संपर्क करू शकता.</p><a href="tel:+919561831817">9561831817</a></div></aside>
+<form id="f"><fieldset class="q" data-q="rating"><legend>1. PhotoSaaS चा एकूण अनुभव कसा होता? *</legend><div class="stars"><input id="s5" name="rating" type="radio" value="5"><label for="s5" title="5"><svg viewBox="0 0 24 24" width="100%" height="100%" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.9-4.8 4.6 1.2 6.6L12 17.5l-5.9 3.2 1.2-6.6L2.5 9.5l6.6-.9z" fill="currentColor"/></svg></label><input id="s4" name="rating" type="radio" value="4"><label for="s4" title="4"><svg viewBox="0 0 24 24" width="100%" height="100%" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.9-4.8 4.6 1.2 6.6L12 17.5l-5.9 3.2 1.2-6.6L2.5 9.5l6.6-.9z" fill="currentColor"/></svg></label><input id="s3" name="rating" type="radio" value="3"><label for="s3" title="3"><svg viewBox="0 0 24 24" width="100%" height="100%" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.9-4.8 4.6 1.2 6.6L12 17.5l-5.9 3.2 1.2-6.6L2.5 9.5l6.6-.9z" fill="currentColor"/></svg></label><input id="s2" name="rating" type="radio" value="2"><label for="s2" title="2"><svg viewBox="0 0 24 24" width="100%" height="100%" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.9-4.8 4.6 1.2 6.6L12 17.5l-5.9 3.2 1.2-6.6L2.5 9.5l6.6-.9z" fill="currentColor"/></svg></label><input id="s1" name="rating" type="radio" value="1"><label for="s1" title="1"><svg viewBox="0 0 24 24" width="100%" height="100%" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.9-4.8 4.6 1.2 6.6L12 17.5l-5.9 3.2 1.2-6.6L2.5 9.5l6.6-.9z" fill="currentColor"/></svg></label></div></fieldset><fieldset class="q" data-q="useful"><legend>2. PhotoSaaS तुमच्या फोटोग्राफी बिझनेससाठी किती उपयोगी वाटले? *</legend><div class="opts"><label class="opt r"><input type="radio" name="useful" value="अत्यंत उपयोगी" required><span>अत्यंत उपयोगी</span></label><label class="opt r"><input type="radio" name="useful" value="उपयोगी"><span>उपयोगी</span></label><label class="opt r"><input type="radio" name="useful" value="ठीकठाक"><span>ठीकठाक</span></label><label class="opt r"><input type="radio" name="useful" value="फारसे उपयोगी नाही"><span>फारसे उपयोगी नाही</span></label><label class="opt r"><input type="radio" name="useful" value="अजिबात उपयोगी नाही"><span>अजिबात उपयोगी नाही</span></label></div></fieldset><fieldset class="q" data-q="features"><legend>3. कोणते modules तुम्हाला सर्वात उपयोगी वाटले?</legend><div class="opts two"><label class="opt c"><input type="checkbox" name="features" value="Dashboard"><span>Dashboard</span></label><label class="opt c"><input type="checkbox" name="features" value="Albums"><span>Albums</span></label><label class="opt c"><input type="checkbox" name="features" value="Clients"><span>Clients</span></label><label class="opt c"><input type="checkbox" name="features" value="Services"><span>Services</span></label><label class="opt c"><input type="checkbox" name="features" value="Quotations"><span>Quotations</span></label><label class="opt c"><input type="checkbox" name="features" value="Invoices"><span>Invoices</span></label><label class="opt c"><input type="checkbox" name="features" value="Payments"><span>Payments</span></label></div></fieldset><div class="q" data-q="time_saved"><label for="time_saved">4. Quotation, invoice आणि client follow-up मध्ये किती वेळ वाचला?</label><div class="sel"><select id="time_saved" name="time_saved"><option value="" selected disabled>निवडा</option><option>खूप</option><option>थोडा</option><option>फरक जाणवला नाही</option></select></div></div><div class="q" data-q="cost"><label for="cost">5. Subscription plan ची किंमत योग्य वाटते का?</label><div class="sel"><select id="cost" name="cost"><option value="" selected disabled>निवडा</option><option>खूप योग्य</option><option>योग्य</option><option>थोडी जास्त</option><option>खूप जास्त</option><option>सांगता येत नाही</option></select></div></div><div class="q" data-q="reuse"><label for="reuse">6. तुम्ही PhotoSaaS रोजच्या कामासाठी वापराल का?</label><div class="sel"><select id="reuse" name="reuse"><option value="" selected disabled>निवडा</option><option>हो</option><option>कदाचित</option><option>नाही</option></select></div></div><div class="q" data-q="recommend"><label for="recommend">7. इतर photographers ना PhotoSaaS recommend कराल का?</label><div class="sel"><select id="recommend" name="recommend"><option value="" selected disabled>निवडा</option><option>हो</option><option>कदाचित</option><option>नाही</option></select></div></div><div class="q" data-q="interest"><label for="interest">8. PhotoSaaS तुमच्या स्टुडिओमध्ये सुरू करायचे आहे का?</label><div class="sel"><select id="interest" name="interest"><option value="" selected disabled>निवडा</option><option>हो, मला Contact करा</option><option>Demo पाहायचा आहे</option><option>सध्या गरज नाही</option></select></div></div><div class="q" data-q="phone"><label for="phone">9. Contact number (interested असल्यास)</label><input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="10 अंकी मोबाईल नंबर"></div><div class="q" data-q="email"><label for="email">10. Email address (interested असल्यास)</label><input id="email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="name@studio.com"></div>
+<div class="q" data-q="suggestion"><label for="suggestion">11. काय सुधारायला हवे किंवा कोणते feature हवे?</label><textarea id="suggestion" name="suggestion" placeholder="उदा. Albums, Invoices किंवा Payments मध्ये काय बदल हवा?"></textarea></div>
+<div class="q"><label class="opt c" style="margin:0"><input type="checkbox" name="consent" value="हो"><span>PhotoSaaS संदर्भात माझ्याशी संपर्क करू शकता.</span></label></div>
+<input name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px">
+<div class="submit"><div id="msg" role="status" aria-live="polite"></div><button type="submit">Feedback पाठवा</button>
+<div class="small">तुमचा contact number फक्त PhotoSaaS demo / support संदर्भातील संपर्कासाठी वापरला जाईल.</div></div></form></div>
+<script>
+const API_URL="https://script.google.com/macros/s/AKfycbzorRPSYF7ZBO_SG2SplaD7s9Npki0orslQvcLglBmoUkvQxJALa-rivAHV8FPzIcBWxg/exec", QKEY="abhijeet_983434";
+const $=id=>document.getElementById(id), demo=()=>API_URL.startsWith("PASTE_");
+const getQ=()=>{try{return JSON.parse(localStorage.getItem(QKEY)||"[]")}catch(e){return[]}};
+const setQ=q=>{try{localStorage.setItem(QKEY,JSON.stringify(q))}catch(e){}};
+const newId=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,10);
+let flushing=false;
+// Send queued feedback in order; stop at the first network failure and retry later.
+async function flush(){
+ if(demo()||flushing) return; flushing=true; const done=new Set();
+ try{for(const d of getQ()){
+  try{const r=await fetch(API_URL,{method:"POST",body:JSON.stringify(d)}); const j=await r.json();
+   if(j.ok||j.error==="invalid") done.add(d.id); else break;}catch(e){break;}
+ }}finally{setQ(getQ().filter(x=>!done.has(x.id))); flushing=false;}
+}
+$("f").addEventListener("submit",async e=>{
+ e.preventDefault(); const fd=new FormData(e.target), msg=$("msg"), btn=e.target.querySelector("button");
+ if(fd.get("website")) return;
+ if(!fd.get("rating")){msg.textContent="कृपया वरील Rating निवडा.";return;}
+ const phone=(fd.get("phone")||"").replace(/[\s-]/g,"");
+ if(phone&&!/^(\+?91)?[6-9]\d{9}$/.test(phone)){msg.textContent="कृपया योग्य 10 अंकी मोबाईल नंबर टाका.";return;}
+ const email=(fd.get("email")||"").trim().toLowerCase();
+ if(email&&!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)){msg.textContent="कृपया योग्य Email address टाका.";return;}
+ const d={id:newId(),timestamp:new Date().toISOString(),rating:fd.get("rating"),useful:fd.get("useful"),
+  features:[...document.querySelectorAll('input[name="features"]:checked')].map(x=>x.value).join(", "),
+  time_saved:fd.get("time_saved"),cost:fd.get("cost"),reuse:fd.get("reuse"),recommend:fd.get("recommend"),
+  interest:fd.get("interest"),phone,email,suggestion:fd.get("suggestion"),consent:fd.get("consent")||"नाही"};
+ btn.disabled=true;
+ const q=getQ(); q.push(d); setQ(q);          // 1) save on device first, never lose it
+ await flush();                               // 2) then try to send
+ const pending=getQ().some(x=>x.id===d.id);
+ msg.textContent=demo()?"Demo mode: feedback या device वर save झाला. Online collection साठी Apps Script URL जोडा.":
+  pending?"Internet नसल्यामुळे feedback या device वर सुरक्षित आहे; connection आल्यावर आपोआप पाठवला जाईल.":
+  "धन्यवाद! तुमचा feedback successfully submit झाला.";
+ e.target.reset(); btn.disabled=false;
+});
+const QS=[...document.querySelectorAll("[data-q]")],F=$("f");
+function prog(){const fd=new FormData(F);let n=0;QS.forEach(q=>{const k=q.dataset.q;if(k==="features"?q.querySelector(":checked"):fd.get(k))n++});
+ $("pn").textContent=n;$("pb").style.width=n/QS.length*100+"%";}
+F.addEventListener("input",prog);F.addEventListener("reset",()=>setTimeout(prog));
+addEventListener("online",flush); flush();
+</script></body></html>
