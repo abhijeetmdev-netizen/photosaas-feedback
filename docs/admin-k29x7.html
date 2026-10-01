@@ -23,7 +23,7 @@ main{max-width:1120px;margin:0 auto;padding:26px 22px 60px}
 .btn.p{background:var(--acc);border-color:var(--acc);color:var(--acc-ink)}.btn:hover{opacity:.9}
 #status{color:var(--mute);margin:0 0 10px}
 .wrap{background:var(--surface);overflow-x:auto;border:1px solid var(--line);border-radius:16px}
-table{width:100%;border-collapse:collapse;font-size:14px;min-width:1100px}
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:1500px}
 th,td{padding:14px 16px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
 th{background:#faf8f5;color:var(--mute);font-weight:600;font-size:13px;white-space:nowrap}
 tbody tr:last-child td{border:0}tbody tr:hover td{background:#faf8f5}
@@ -38,7 +38,7 @@ tbody tr:last-child td{border:0}tbody tr:hover td{background:#faf8f5}
 <div class="stat"><b id="useful">0%</b><span>उपयोगी वाटले</span></div><div class="stat"><b id="interested">0</b><span>Contact हवा आहे</span></div></div>
 <div class="tools"><div class="find"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input id="q" type="search" placeholder="नंबर, email किंवा suggestion शोधा" oninput="render()"></div><button class="btn" onclick="load()">Refresh</button><button class="btn p" onclick="exportCSV()">CSV download</button></div>
 <p id="status" role="status"></p>
-<div class="wrap"><table><thead><tr><th>Date</th><th>Rating</th><th>Useful</th><th>Modules</th><th>Cost</th><th>Reuse</th><th>Interest</th><th>Phone</th><th>Email</th><th>Suggestion</th></tr></thead><tbody id="tb"></tbody></table></div></main>
+<div class="wrap"><table><thead><tr><th>Date</th><th>Rating</th><th>Useful</th><th>Modules</th><th>Time saved</th><th>Cost</th><th>Reuse</th><th>Recommend</th><th>Interest</th><th>Phone</th><th>Email</th><th>Suggestion</th><th>Consent</th></tr></thead><tbody id="tb"></tbody></table></div></main>
 <script>
 const API_URL="https://script.google.com/macros/s/AKfycbzorRPSYF7ZBO_SG2SplaD7s9Npki0orslQvcLglBmoUkvQxJALa-rivAHV8FPzIcBWxg/exec", QKEY="abhijeet_983434", SP="M12 2.5l2.9 6.1 6.6.9-4.8 4.6 1.2 6.6L12 17.5l-5.9 3.2 1.2-6.6L2.5 9.5l6.6-.9z"; let rows=[];
 const $=id=>document.getElementById(id);
@@ -62,7 +62,7 @@ function render(){
  $("useful").textContent=rows.length?Math.round(rows.filter(x=>x.useful==="अत्यंत उपयोगी"||x.useful==="उपयोगी").length/rows.length*100)+"%":"0%";
  $("interested").textContent=rows.filter(x=>(x.interest||"").includes("Contact")).length;
  const q=$("q").value.trim().toLowerCase(), v=rows.filter(x=>!q||JSON.stringify(x).toLowerCase().includes(q));
- $("tb").innerHTML=v.length?v.map(x=>`<tr><td class="dt">${fmt(x.timestamp)}</td><td>${stars(x.rating)}</td><td>${esc(x.useful)}</td><td class="sug">${esc(x.features)}</td><td>${esc(x.cost)}</td><td>${esc(x.reuse)}</td><td>${x.interest?`<span class="chip">${esc(x.interest)}</span>`:""}</td><td>${esc(x.phone)}</td><td>${esc(x.email)}</td><td class="sug">${esc(x.suggestion)}</td></tr>`).join(""):`<tr><td class="empty" colspan="10">${rows.length?"Search ला काही सापडले नाही.":"अजून feedback आलेला नाही. Customer page share करा."}</td></tr>`;
+ $("tb").innerHTML=v.length?v.map(x=>`<tr><td class="dt">${fmt(x.timestamp)}</td><td>${stars(x.rating)}</td><td>${esc(x.useful)}</td><td class="sug">${esc(x.features)}</td><td>${esc(x.time_saved)}</td><td>${esc(x.cost)}</td><td>${esc(x.reuse)}</td><td>${esc(x.recommend)}</td><td>${x.interest?`<span class="chip">${esc(x.interest)}</span>`:""}</td><td>${esc(x.phone)}</td><td>${esc(x.email)}</td><td class="sug">${esc(x.suggestion)}</td><td>${esc(x.consent)}</td></tr>`).join(""):`<tr><td class="empty" colspan="13">${rows.length?"Search ला काही सापडले नाही.":"अजून feedback आलेला नाही. Customer page share करा."}</td></tr>`;
 }
 function exportCSV(){
  const h=["Date","Rating","Useful","Features","Time Saved","Cost","Reuse","Recommend","Interest","Phone","Email","Suggestion","Consent"];
